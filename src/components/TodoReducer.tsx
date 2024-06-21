@@ -1,29 +1,61 @@
-interface Joke {
+interface Task {
   id: number;
-  joke: string;
-  rate: number;
+  text: string;
+  completed: boolean;
+}
+
+interface State {
+  tasks: Task[];
 }
 
 type Action =
-  | { type: 'ADD_JOKE'; payload: string }
-  | { type: 'UPDATE_RATE'; payload: { id: number; rate: number } }
-  | { type: 'DELETE_JOKE'; payload: number };
+  | { type: 'ADD_TASK'; payload: string }
+  | { type: 'TOGGLE_TASK'; payload: number }
+  | { type: 'CLEAR_COMPLETED' }
+  | { type: 'FILTER_ALL' }
+  | { type: 'FILTER_ACTIVE' }
+  | { type: 'FILTER_COMPLETED' };
 
-export const jokesReducer = (state: Joke[], action: Action): Joke[] => {
+export const initialState: State = {
+  tasks: [],
+};
+
+export const reducer = (state: State, action: Action): State => {
   switch (action.type) {
-    case 'ADD_JOKE':
-      const newJoke: Joke = {
-        id: state.length + 1,
-        joke: action.payload,
-        rate: 0
+    case 'ADD_TASK':
+      const newTask: Task = {
+        id: Date.now(),
+        text: action.payload,
+        completed: false,
       };
-      return [...state, newJoke];
-    case 'UPDATE_RATE':
-      return state.map((joke) =>
-        joke.id === action.payload.id ? { ...joke, rate: action.payload.rate } : joke
-      );
-    case 'DELETE_JOKE':
-      return state.filter((joke) => joke.id !== action.payload);
+      return {
+        ...state,
+        tasks: [...state.tasks, newTask],
+      };
+    case 'TOGGLE_TASK':
+      return {
+        ...state,
+        tasks: state.tasks.map(task =>
+          task.id === action.payload ? { ...task, completed: !task.completed } : task
+        ),
+      };
+    case 'CLEAR_COMPLETED':
+      return {
+        ...state,
+        tasks: state.tasks.filter(task => !task.completed),
+      };
+    case 'FILTER_ALL':
+      return state; // No filter applied
+    case 'FILTER_ACTIVE':
+      return {
+        ...state,
+        tasks: state.tasks.filter(task => !task.completed),
+      };
+    case 'FILTER_COMPLETED':
+      return {
+        ...state,
+        tasks: state.tasks.filter(task => task.completed),
+      };
     default:
       return state;
   }

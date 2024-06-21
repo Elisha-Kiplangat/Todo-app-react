@@ -1,35 +1,10 @@
-// import { useState } from 'react'
-
-import './App.scss'
-import Todo from './components/Todo'
-import image from '../assets/icon-sun.svg'
-
 import { useReducer, useState } from 'react';
+import './App.scss';
+import Todo from './components/Todo';
+import image from '../assets/icon-sun.svg';
+import { reducer, initialState } from './components/TodoReducer';
 
-function App() {
- 
-  interface Task {
-  id: number;
-  text: string;
-  completed: boolean;
-}
-
-interface State {
-  tasks: Task[];
-}
-
-type Action =
-  | { type: 'ADD_TASK'; payload: string }
-  | { type: 'TOGGLE_TASK'; payload: number }
-  | { type: 'CLEAR_COMPLETED' }
-  | { type: 'FILTER_ALL' }
-  | { type: 'FILTER_ACTIVE' }
-  | { type: 'FILTER_COMPLETED' };
-
-const initialState: State = {
-  tasks: [],
-};
-
+const App = () => {
   const [state, dispatch] = useReducer(reducer, initialState);
   const [task, setTask] = useState('');
 
@@ -39,10 +14,6 @@ const initialState: State = {
       setTask('');
     }
   };
-
-  // const handleToggleTask = (id: number) => {
-  //   dispatch({ type: 'TOGGLE_TASK', payload: id });
-  // };
 
   const handleClearCompleted = () => {
     dispatch({ type: 'CLEAR_COMPLETED' });
@@ -60,35 +31,33 @@ const initialState: State = {
     dispatch({ type: 'FILTER_COMPLETED' });
   };
 
-
-
   return (
-    <>
-     
-      <div className="App">
-        <div className="container">
-          <div className="header">
-            <h1>TODO</h1>
-            <img src={image} alt="sun" />
-          </div>
-          <div className="inputs">
-            <input type="checkbox" name="check" onClick={handleAdd} />
-            <input type="text" placeholder="Create a new todo..."/>
-          </div>
-          <Todo 
-          
+    <div className="App">
+      <div className="container">
+        <div className="header">
+          <h1>TODO</h1>
+          <img src={image} alt="sun" />
+        </div>
+        <div className="inputs">
+          <input type="checkbox" name="check" onClick={handleAdd} />
+          <input
+            type="text"
+            placeholder="Create a new todo..."
+            value={task}
+            onChange={(e) => setTask(e.target.value)}
+          />
+        </div>
+        <Todo
           tasks={state.tasks}
           handleAll={handleAll}
           handleActive={handleActive}
           handleCompleted={handleCompleted}
           handleClearCompleted={handleClearCompleted}
           dispatch={dispatch}
-        
-          />
-        </div>
+        />
       </div>
-    </>
-  )
-}
+    </div>
+  );
+};
 
-export default App
+export default App;
