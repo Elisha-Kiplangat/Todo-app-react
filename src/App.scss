@@ -4,3 +4,61 @@
   padding: 2rem;
   text-align: center;
 }
+.App {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background-color: #f0f0f0;
+  font-family: 'Arial', sans-serif;
+
+  .container {
+    background: #fff;
+    width: 100%;
+    max-width: 600px;
+    padding: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+
+    .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+
+      h1 {
+        font-size: 24px;
+        color: #333;
+      }
+
+      img {
+        width: 40px;
+        height: 40px;
+      }
+    }
+
+    .inputs {
+      display: flex;
+      align-items: center;
+      margin-bottom: 20px;
+      padding: 10px;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+
+      input[type="checkbox"] {
+        margin-right: 10px;
+        cursor: pointer;
+        width: 20px;
+        height: 20px;
+      }
+
+      input[type="text"] {
+        flex-grow: 1;
+        padding: 10px;
+        border: none;
+        outline: none;
+        font-size: 16px;
+      }
+    }
+  }
+}
