@@ -1,24 +1,21 @@
 #root {
-  max-width: 1280px;
   margin: 0 auto;
   padding: 2rem;
   text-align: center;
 }
 .App {
+  background-image: url(./assets/bg-desktop-light.jpg);
   display: flex;
+  height: 300px;
   justify-content: center;
   align-items: center;
-  min-height: 100vh;
-  background-color: #f0f0f0;
   font-family: 'Arial', sans-serif;
 
   .container {
-    background: #fff;
     width: 100%;
     max-width: 600px;
+    margin-top: 50px;
     padding: 20px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    border-radius: 8px;
 
     .header {
       display: flex;
@@ -28,7 +25,7 @@
 
       h1 {
         font-size: 24px;
-        color: #333;
+        color: #ffffff;
       }
 
       img {
@@ -42,8 +39,9 @@
       align-items: center;
       margin-bottom: 20px;
       padding: 10px;
-      border: 1px solid #ddd;
+      background-color: #443e3e;
       border-radius: 8px;
+      width: 100%;
 
       input[type="checkbox"] {
         margin-right: 10px;
@@ -56,8 +54,9 @@
         flex-grow: 1;
         padding: 10px;
         border: none;
-        outline: none;
         font-size: 16px;
+        background-color: #443e3e;
+        color: white;
       }
     }
   }

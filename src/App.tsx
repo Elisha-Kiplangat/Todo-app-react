@@ -1,7 +1,7 @@
 import { useReducer, useState } from 'react';
 import './App.scss';
 import Todo from './components/Todo';
-import image from '../assets/icon-sun.svg';
+import image from './assets/icon-sun.svg';
 import { reducer, initialState } from './components/TodoReducer';
 
 const App = () => {
