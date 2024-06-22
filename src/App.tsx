@@ -1,13 +1,16 @@
 import { useReducer, useState } from 'react';
 import './App.scss';
 import Todo from './components/Todo';
-import image from './assets/icon-sun.svg';
+import lightIcon from './assets/icon-sun.svg';
+import darkIcon from './assets/icon-moon.svg';
 import { reducer, initialState } from './components/TodoReducer';
-import bg from './assets/bg-desktop-light.jpg';
+import lightBg from './assets/bg-desktop-light.jpg';
+import darkBg from './assets/bg-desktop-dark.jpg';
 
 const App = () => {
   const [state, dispatch] = useReducer(reducer, initialState);
   const [task, setTask] = useState('');
+  const [theme, setTheme] = useState<'light' | 'dark'>('light');
 
   const handleAdd = () => {
     if (task.trim()) {
@@ -32,14 +35,26 @@ const App = () => {
     dispatch({ type: 'FILTER_COMPLETED' });
   };
 
+   const handleTheme = () => {
+    const newTheme = theme === 'light' ? 'dark' : 'light';
+    setTheme(newTheme);
+  };
+
+  // Dynamically select background and icon based on the theme
+  const backgroundImage = theme === 'light' ? lightBg : darkBg;
+  const themeIcon = theme === 'light' ? lightIcon : darkIcon;
+
+
   return (
     <>
-        <img src={bg} alt="" />
-    <div className="App">
+        <img src={backgroundImage} alt="" />
+    <div className={`App ${theme}`}>
       <div className="container">
         <div className="header">
           <h1>TODO</h1>
-          <img src={image} alt="sun" />
+          <button className='theme' onClick={handleTheme}>
+          <img src={themeIcon} alt="sun" />
+          </button>
         </div>
         <div className="inputs">
           <input type="checkbox" name="check" onClick={handleAdd} />

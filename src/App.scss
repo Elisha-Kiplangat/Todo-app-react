@@ -6,6 +6,7 @@
 img{
   width: 100%;
 }
+
 .App {
   // background-image: url(./assets/bg-desktop-light.jpg);
   display: flex;
@@ -13,6 +14,16 @@ img{
   justify-content: center;
   align-items: center;
   font-family: 'Arial', sans-serif;
+
+    &.light {
+        background-color: #f0f2f4;
+        color: #333;
+      }
+    
+      &.dark {
+        background-color: #202c37;
+        color: #fff;
+      }
 
   .container {
     width: 100%;
@@ -31,10 +42,20 @@ img{
         color: #ffffff;
       }
 
-      img {
-        width: 40px;
-        height: 40px;
+      .theme{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        cursor: pointer;
+        background: none;
+        border: none;
+
+        img {
+          width: 40px;
+          height: 40px;
+        }
       }
+
     }
 
     .inputs {
