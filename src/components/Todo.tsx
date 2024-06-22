@@ -40,13 +40,13 @@ export const Todo = ({
       <div className='todos'>
         <div className="tasks">
         {tasks.filter(task => !task.hidden).map((task) => (
-          <div key={task.id} className='list'>
+          <div key={task.id} className={`list ${task.completed ? 'completed' : ''}`}>
             <input
               type="checkbox"
               checked={task.completed}
               onChange={() => handleToggleTask(task.id)}
             />
-            <p>{task.text}</p>
+            <p className= {task.completed ? 'completed-text' : ''}>{task.text}</p>
             <button className="deleteBtn" onClick={() => handleDelete(task.id)}>X</button>
           </div>
         ))}

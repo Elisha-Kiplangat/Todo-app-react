@@ -26,6 +26,13 @@
             float: left;
             margin-bottom: 20px;
 
+            &.completed {
+                p {
+                    text-decoration: line-through;
+                    opacity: 0.5;
+                }
+            }
+
             input[type="checkbox"] {
                 margin-right: 10px;
                 cursor: pointer;
