@@ -8,6 +8,7 @@ interface Task {
 
 interface TodoProps {
   tasks: Task[];
+  // handleDelete: () => void;
   handleAll: () => void;
   handleActive: () => void;
   handleCompleted: () => void;
@@ -25,7 +26,13 @@ export const Todo = ({
 }: TodoProps) => {
   const handleToggleTask = (id: number) => {
     dispatch({ type: 'TOGGLE_TASK', payload: id });
+  
   };
+
+
+  function handleDelete(id: number): void {
+    dispatch({ type: 'DELETE_TASK', payload: id });
+  }
 
   return (
     <>
@@ -39,7 +46,7 @@ export const Todo = ({
               onChange={() => handleToggleTask(task.id)}
             />
             <p>{task.text}</p>
-            <button className="deleteBtn">X</button>
+            <button className="deleteBtn" onClick={() => handleDelete(task.id)}>X</button>
           </div>
         ))}
       </div>

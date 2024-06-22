@@ -10,6 +10,7 @@ interface State {
 
 type Action =
   | { type: 'ADD_TASK'; payload: string }
+  | { type: 'DELETE_TASK'; payload: number }
   | { type: 'TOGGLE_TASK'; payload: number }
   | { type: 'CLEAR_COMPLETED' }
   | { type: 'FILTER_ALL' }
@@ -31,6 +32,11 @@ export const reducer = (state: State, action: Action): State => {
       return {
         ...state,
         tasks: [...state.tasks, newTask],
+      };
+    case 'DELETE_TASK':
+      return {
+        ...state,
+        tasks: state.tasks.filter(task => task.id !== action.payload),
       };
     case 'TOGGLE_TASK':
       return {
