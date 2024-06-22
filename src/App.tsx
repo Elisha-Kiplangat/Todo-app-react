@@ -3,6 +3,7 @@ import './App.scss';
 import Todo from './components/Todo';
 import image from './assets/icon-sun.svg';
 import { reducer, initialState } from './components/TodoReducer';
+import bg from './assets/bg-desktop-light.jpg';
 
 const App = () => {
   const [state, dispatch] = useReducer(reducer, initialState);
@@ -32,6 +33,8 @@ const App = () => {
   };
 
   return (
+    <>
+        <img src={bg} alt="" />
     <div className="App">
       <div className="container">
         <div className="header">
@@ -57,6 +60,7 @@ const App = () => {
         />
       </div>
     </div>
+    </>
   );
 };
 

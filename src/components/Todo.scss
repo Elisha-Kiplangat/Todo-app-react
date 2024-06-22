@@ -18,16 +18,40 @@
         width: 100%;
         margin-bottom: 20px;
 
-        input[type="checkbox"] {
-            margin-right: 10px;
-            cursor: pointer;
-            width: 20px;
-            height: 20px;
-        }
+        .list{
+            display: flex;
+            flex-direction: row;
+            align-items: left;
+            justify-content: space-between;
+            float: left;
+            margin-bottom: 20px;
 
-        p {
-            margin: 0;
-            font-size: 18px;
+            input[type="checkbox"] {
+                margin-right: 10px;
+                cursor: pointer;
+                width: 20px;
+                height: 20px;
+            }
+    
+            p {
+                position: relative;
+                float: left;
+                margin: 0;
+                font-size: 18px;
+            }
+            .deleteBtn{
+                background: none;
+                color: #f33737;
+                border: none;
+                padding: 10px 15px;
+                cursor: pointer;
+                font-size: 16px;
+                justify-content: flex-end;
+                font-family: Verdana, Geneva, Tahoma, sans-serif;
+                &:hover {
+                    color: #ff0000;
+                }
+            }
         }
     }
 
@@ -57,6 +81,49 @@
 
             &:not(:last-child) {
                 margin-right: 10px;
+            }
+        }
+    }
+}
+
+@media screen and (max-width: 375px) {
+    .todos {
+        padding: 10px;
+        width: 96%;
+        .tasks {
+            
+            .list {
+                p {
+                    font-size: 14px;
+                }
+
+                .deleteBtn {
+                    padding: 5px 10px;
+                    font-size: 12px;
+                }
+            }
+        }
+
+        .controls {
+            flex-direction: row;
+            align-items: flex-start;
+
+            p {
+                font-size: 12px;
+            }
+
+            button {
+                padding: 5px 10px;
+                font-size: 12px;
+
+                &:not(:last-child) {
+                    margin-bottom: 5px;
+                }
+                &:nth-child(2), &:nth-child(3), &:nth-child(4) {
+                    margin-right: 0;
+                    display: flex;
+                    flex-direction: row;
+                }
             }
         }
     }

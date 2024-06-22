@@ -3,10 +3,13 @@
   padding: 2rem;
   text-align: center;
 }
+img{
+  width: 100%;
+}
 .App {
-  background-image: url(./assets/bg-desktop-light.jpg);
+  // background-image: url(./assets/bg-desktop-light.jpg);
   display: flex;
-  height: 300px;
+  // height: 300px;
   justify-content: center;
   align-items: center;
   font-family: 'Arial', sans-serif;
@@ -14,7 +17,7 @@
   .container {
     width: 100%;
     max-width: 600px;
-    margin-top: 50px;
+    margin-top: -250px;
     padding: 20px;
 
     .header {
@@ -57,6 +60,51 @@
         font-size: 16px;
         background-color: #443e3e;
         color: white;
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 375px) {
+  #root {
+    padding: 1rem;
+  }
+  img{
+        height: 200px;
+      }
+
+  .App {
+    margin: 20px;  
+    .container {
+      margin-top: -200px;
+      padding: 10px;
+
+      .header {
+        h1 {
+          font-size: 20px;
+          margin-bottom: 10px;
+        }
+
+        img {
+          width: 30px;
+          height: 30px;
+        }
+      }
+
+      .inputs {
+        flex-direction: row;
+        padding: 5px;
+
+        input[type="checkbox"] {
+          margin-bottom: 10px;
+          width: 15px;
+          height: 15px;
+        }
+
+        input[type="text"] {
+          padding: 5px;
+          font-size: 14px;
+        }
       }
     }
   }

@@ -32,13 +32,14 @@ export const Todo = ({
       <div className='todos'>
         <div className="tasks">
         {tasks.map((task) => (
-          <div key={task.id}>
+          <div key={task.id} className='list'>
             <input
               type="checkbox"
               checked={task.completed}
               onChange={() => handleToggleTask(task.id)}
             />
             <p>{task.text}</p>
+            <button className="deleteBtn">X</button>
           </div>
         ))}
       </div>
