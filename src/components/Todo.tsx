@@ -4,6 +4,7 @@ interface Task {
   id: number;
   text: string;
   completed: boolean;
+  hidden?: boolean;
 }
 
 interface TodoProps {
@@ -38,7 +39,7 @@ export const Todo = ({
     <>
       <div className='todos'>
         <div className="tasks">
-        {tasks.map((task) => (
+        {tasks.filter(task => !task.hidden).map((task) => (
           <div key={task.id} className='list'>
             <input
               type="checkbox"

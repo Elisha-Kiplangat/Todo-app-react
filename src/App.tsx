@@ -48,6 +48,14 @@ const App = () => {
             placeholder="Create a new todo..."
             value={task}
             onChange={(e) => setTask(e.target.value)}
+            onKeyDown={(e) => {
+              if (e.key === 'Enter' && e.currentTarget.value.trim()) {
+                dispatch({ type: 'ADD_TASK', payload: e.currentTarget.value.trim() });
+                e.currentTarget.value = '';
+                setTask('')
+              }
+            }
+          }
           />
         </div>
         <Todo

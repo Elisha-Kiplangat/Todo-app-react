@@ -50,18 +50,28 @@ export const reducer = (state: State, action: Action): State => {
         ...state,
         tasks: state.tasks.filter(task => !task.completed),
       };
-    case 'FILTER_ALL':
-      return state; // No filter applied
-    case 'FILTER_ACTIVE':
-      return {
-        ...state,
-        tasks: state.tasks.filter(task => !task.completed),
-      };
-    case 'FILTER_COMPLETED':
-      return {
-        ...state,
-        tasks: state.tasks.filter(task => task.completed),
-      };
+   case 'FILTER_ACTIVE':
+  return {
+    ...state,
+    tasks: state.tasks.map(task =>
+      task.completed ? { ...task, hidden: true } : { ...task, hidden: false }
+    ),
+  };
+
+  case 'FILTER_COMPLETED':
+  return {
+    ...state,
+    tasks: state.tasks.map(task =>
+      !task.completed ? { ...task, hidden: true } : { ...task, hidden: false }
+    ),
+  };
+
+case 'FILTER_ALL':
+  return {
+    ...state,
+    tasks: state.tasks.map(task => ({ ...task, hidden: false })),
+  };
+
     default:
       return state;
   }
