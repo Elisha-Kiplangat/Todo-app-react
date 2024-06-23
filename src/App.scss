@@ -10,14 +10,16 @@ img{
 .App {
   // background-image: url(./assets/bg-desktop-light.jpg);
   display: flex;
-  // height: 300px;
+  height: 100vh;
   justify-content: center;
   align-items: center;
   font-family: 'Arial', sans-serif;
+  margin-top: -250px;
 
     &.light {
         background-color: #f0f2f4;
         color: #333;
+        // height: 100%;
       }
     
       &.dark {
