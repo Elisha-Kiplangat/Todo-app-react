@@ -1,4 +1,4 @@
-import { useReducer, useState } from 'react';
+import { useEffect, useReducer, useState } from 'react';
 import './App.scss';
 import Todo from './components/Todo';
 import lightIcon from './assets/icon-sun.svg';
@@ -6,11 +6,20 @@ import darkIcon from './assets/icon-moon.svg';
 import { reducer, initialState } from './components/TodoReducer';
 import lightBg from './assets/bg-desktop-light.jpg';
 import darkBg from './assets/bg-desktop-dark.jpg';
+import UseLocalStorage from './components/hooks/UseLocalStorage';
 
 const App = () => {
-  const [state, dispatch] = useReducer(reducer, initialState);
+  // const [state, dispatch] = useReducer(reducer, initialState);
   const [task, setTask] = useState('');
   const [theme, setTheme] = useState<'light' | 'dark'>('light');
+  
+  const [taskStorage, setTaskStorage] = UseLocalStorage('tasks', initialState);
+  const [state, dispatch] = useReducer(reducer, { tasks: taskStorage });
+
+  useEffect(() => {
+    setTaskStorage(state.tasks);
+  }, [state.tasks, setTaskStorage]);
+
 
   const handleAdd = () => {
     if (task.trim()) {

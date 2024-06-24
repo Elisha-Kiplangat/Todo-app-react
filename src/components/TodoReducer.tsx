@@ -4,7 +4,7 @@ interface Task {
   completed: boolean;
 }
 
-interface State {
+export interface State {
   tasks: Task[];
 }
 

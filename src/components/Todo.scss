@@ -25,6 +25,7 @@
             justify-content: space-between;
             float: left;
             margin-bottom: 20px;
+        
 
             &.completed {
                 p {
@@ -45,6 +46,7 @@
                 float: left;
                 margin: 0;
                 font-size: 18px;
+                color: #fff;
             }
             .deleteBtn{
                 background: none;
