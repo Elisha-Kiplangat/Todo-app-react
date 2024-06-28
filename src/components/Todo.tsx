@@ -1,4 +1,4 @@
-import './Todo.scss'
+import './Todo.scss';
 
 interface Task {
   id: number;
@@ -9,7 +9,6 @@ interface Task {
 
 interface TodoProps {
   tasks: Task[];
-  // handleDelete: () => void;
   handleAll: () => void;
   handleActive: () => void;
   handleCompleted: () => void;
@@ -17,7 +16,7 @@ interface TodoProps {
   dispatch: React.Dispatch<any>;
 }
 
-export const Todo = ({
+const Todo = ({
   tasks,
   handleAll,
   handleActive,
@@ -25,20 +24,22 @@ export const Todo = ({
   handleClearCompleted,
   dispatch,
 }: TodoProps) => {
-  const handleToggleTask = (id: number) => {
-    dispatch({ type: 'TOGGLE_TASK', payload: id });
-  
-  };
-
-
-  function handleDelete(id: number): void {
-    dispatch({ type: 'DELETE_TASK', payload: id });
+  if (!Array.isArray(tasks)) {
+    console.error('Tasks is not an array', tasks);
+    return null;
   }
 
+  const handleToggleTask = (id: number) => {
+    dispatch({ type: 'TOGGLE_TASK', payload: id });
+  };
+
+  const handleDelete = (id: number) => {
+    dispatch({ type: 'DELETE_TASK', payload: id });
+  };
+
   return (
-    <>
-      <div className='todos'>
-        <div className="tasks">
+    <div className="todos">
+      <div className="tasks">
         {tasks.filter(task => !task.hidden).map((task) => (
           <div key={task.id} className={`list ${task.completed ? 'completed' : ''}`}>
             <input
@@ -46,24 +47,20 @@ export const Todo = ({
               checked={task.completed}
               onChange={() => handleToggleTask(task.id)}
             />
-            <p className= {task.completed ? 'completed-text' : ''}>{task.text}</p>
+            <p className={task.completed ? 'completed-text' : ''}>{task.text}</p>
             <button className="deleteBtn" onClick={() => handleDelete(task.id)}>X</button>
           </div>
         ))}
       </div>
-        <div className="controls">
-        <p>{tasks.length} items left</p>
+      <div className="controls">
+        <p>{tasks.filter(task => !task.completed && !task.hidden).length} items left</p>
         <button onClick={handleAll}>All</button>
         <button onClick={handleActive}>Active</button>
         <button onClick={handleCompleted}>Completed</button>
         <button onClick={handleClearCompleted}>Clear Completed</button>
-
-        </div>
-
       </div>
-    
-    </>
-  )
-}
+    </div>
+  );
+};
 
 export default Todo;

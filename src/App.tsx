@@ -9,17 +9,14 @@ import darkBg from './assets/bg-desktop-dark.jpg';
 import UseLocalStorage from './components/hooks/UseLocalStorage';
 
 const App = () => {
-  // const [state, dispatch] = useReducer(reducer, initialState);
+  const [taskStorage, setTaskStorage] = UseLocalStorage('tasks', initialState);
+  const [state, dispatch] = useReducer(reducer, { tasks: taskStorage.tasks });
   const [task, setTask] = useState('');
   const [theme, setTheme] = useState<'light' | 'dark'>('light');
-  
-  const [taskStorage, setTaskStorage] = UseLocalStorage('tasks', initialState);
-  const [state, dispatch] = useReducer(reducer, { tasks: taskStorage });
 
   useEffect(() => {
-    setTaskStorage(state.tasks);
-  }, [state.tasks, setTaskStorage]);
-
+    setTaskStorage(state);
+  }, [state, setTaskStorage]);
 
   const handleAdd = () => {
     if (task.trim()) {
@@ -44,7 +41,7 @@ const App = () => {
     dispatch({ type: 'FILTER_COMPLETED' });
   };
 
-   const handleTheme = () => {
+  const handleTheme = () => {
     const newTheme = theme === 'light' ? 'dark' : 'light';
     setTheme(newTheme);
   };
@@ -53,45 +50,43 @@ const App = () => {
   const backgroundImage = theme === 'light' ? lightBg : darkBg;
   const themeIcon = theme === 'light' ? lightIcon : darkIcon;
 
-
   return (
     <>
-        <img src={backgroundImage} alt="" />
-    <div className={`App ${theme}`}>
-      <div className="container">
-        <div className="header">
-          <h1>TODO</h1>
-          <button className='theme' onClick={handleTheme}>
-          <img src={themeIcon} alt="sun" />
-          </button>
-        </div>
-        <div className="inputs">
-          <input type="checkbox" name="check" onClick={handleAdd} />
-          <input
-            type="text"
-            placeholder="Create a new todo..."
-            value={task}
-            onChange={(e) => setTask(e.target.value)}
-            onKeyDown={(e) => {
-              if (e.key === 'Enter' && e.currentTarget.value.trim()) {
-                dispatch({ type: 'ADD_TASK', payload: e.currentTarget.value.trim() });
-                e.currentTarget.value = '';
-                setTask('')
-              }
-            }
-          }
+      <img src={backgroundImage} alt="background" className="background-image" />
+      <div className={`App ${theme}`}>
+        <div className="container">
+          <div className="header">
+            <h1>TODO</h1>
+            <button className="theme" onClick={handleTheme}>
+              <img src={themeIcon} alt="theme icon" />
+            </button>
+          </div>
+          <div className="inputs">
+            <input type="checkbox" name="check" onClick={handleAdd} />
+            <input
+              type="text"
+              placeholder="Create a new todo..."
+              value={task}
+              onChange={(e) => setTask(e.target.value)}
+              onKeyDown={(e) => {
+                if (e.key === 'Enter' && e.currentTarget.value.trim()) {
+                  dispatch({ type: 'ADD_TASK', payload: e.currentTarget.value.trim() });
+                  e.currentTarget.value = '';
+                  setTask('');
+                }
+              }}
+            />
+          </div>
+          <Todo
+            tasks={state.tasks}
+            handleAll={handleAll}
+            handleActive={handleActive}
+            handleCompleted={handleCompleted}
+            handleClearCompleted={handleClearCompleted}
+            dispatch={dispatch}
           />
         </div>
-        <Todo
-          tasks={state.tasks}
-          handleAll={handleAll}
-          handleActive={handleActive}
-          handleCompleted={handleCompleted}
-          handleClearCompleted={handleClearCompleted}
-          dispatch={dispatch}
-        />
       </div>
-    </div>
     </>
   );
 };
